@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "dotenv/config";
 import chalk from "chalk";
 import enquirer from "enquirer";
 const { Confirm } = enquirer;
@@ -36,6 +37,7 @@ researchData.push(await enquirer.prompt(research));
 confirmPrompt.run().then(async (answer) => {
     if (answer) researchData.push(await enquirer.prompt(research));
     console.log(researchData);
+    triggerWorkflow(researchData);
 });
 
 async function triggerWorkflow(bodyData) {
@@ -44,13 +46,13 @@ async function triggerWorkflow(bodyData) {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${ghAccessToken}`,
-                "Content-Type": "application/json",
                 Accept: "application/vnd.github.v3+json",
+                Accept: "*/*",
             },
             body: JSON.stringify({
                 ref: "main",
                 inputs: {
-                    data: bodyData,
+                    data: JSON.stringify(bodyData),
                 },
             }),
         });
@@ -59,8 +61,7 @@ async function triggerWorkflow(bodyData) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
-        console.log("Workflow dispatched successfully:", data);
+        console.log(chalk.green("Workflow dispatched successfully!"));
     } catch (error) {
         console.error("Error dispatching workflow:", error);
     }
