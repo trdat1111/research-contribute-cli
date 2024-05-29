@@ -10,7 +10,7 @@ const ghAccessToken = process.env.GITHUB_ACCESS_TOKEN;
 
 const researchData = [];
 
-console.log(chalk.blue("What research you have done today?"));
+console.log(chalk.blue("What research you have done today?\n"));
 
 const confirmPrompt = new Confirm({
     name: "question",
@@ -47,7 +47,6 @@ async function triggerWorkflow(bodyData) {
             headers: {
                 Authorization: `Bearer ${ghAccessToken}`,
                 Accept: "application/vnd.github.v3+json",
-                Accept: "*/*",
             },
             body: JSON.stringify({
                 ref: "main",
@@ -58,7 +57,7 @@ async function triggerWorkflow(bodyData) {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! Status: ${response.status}\n${response}`);
         }
 
         console.log(chalk.green("Workflow dispatched successfully!"));
