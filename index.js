@@ -3,6 +3,7 @@
 import "dotenv/config";
 import chalk from "chalk";
 import enquirer from "enquirer";
+import ora from "ora";
 const { Confirm } = enquirer;
 
 const ghWorkflowUrl = process.env.GITHUB_API_URL;
@@ -36,11 +37,12 @@ researchData.push(await enquirer.prompt(research));
 
 confirmPrompt.run().then(async (answer) => {
     if (answer) researchData.push(await enquirer.prompt(research));
-    console.log(researchData);
     triggerWorkflow(researchData);
 });
 
 async function triggerWorkflow(bodyData) {
+    const spinner = ora("Dispatching workflow...").start();
+
     try {
         const response = await fetch(ghWorkflowUrl, {
             method: "POST",
@@ -60,8 +62,9 @@ async function triggerWorkflow(bodyData) {
             throw new Error(`HTTP error! Status: ${response.status}\n${response}`);
         }
 
-        console.log(chalk.green("Workflow dispatched successfully!"));
+        spinner.succeed(chalk.green("Workflow dispatched successfully!"));
     } catch (error) {
-        console.error("Error dispatching workflow:", error);
+        spinner.fail("Error dispatching workflow");
+        console.error(error);
     }
 }
