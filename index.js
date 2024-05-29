@@ -62,7 +62,7 @@ async function triggerWorkflow(bodyData) {
             throw new Error(`HTTP error! Status: ${response.status}\n${response}`);
         }
 
-        spinner.succeed(chalk.green("Workflow dispatched successfully!"));
+        spinner.succeed(chalk.greenBright("Workflow dispatched successfully!"));
     } catch (error) {
         spinner.fail("Error dispatching workflow");
         console.error(error);
