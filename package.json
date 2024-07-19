@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "bin": {
-        "re-con": "index.js"
+        "recon": "index.js"
     },
     "scripts": {
         "start": "node index.js"

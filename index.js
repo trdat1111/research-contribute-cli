@@ -11,6 +11,11 @@ const ghAccessToken = process.env.GITHUB_ACCESS_TOKEN;
 
 const researchData = [];
 
+if (!ghWorkflowUrl || !ghAccessToken) {
+    console.error(chalk.red("Error: Missing environment variables GITHUB_API_URL or GITHUB_ACCESS_TOKEN"));
+    process.exit(1);
+}
+
 console.log(chalk.blue("What research you have done today?\n"));
 
 const confirmPrompt = new Confirm({
