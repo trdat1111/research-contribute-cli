@@ -1,0 +1,35 @@
+{
+  "topArticles": [
+    {
+      "title": "5 Projects That Will Actually Make You Better at Docker",
+      "url": "https://api.daily.dev/r/0TVTpqbJi",
+      "upvotes": 593
+    },
+    {
+      "title": "Have I Been Pwned 2.0 is Now Live!",
+      "url": "https://api.daily.dev/r/zHqwLNDTS",
+      "upvotes": 504
+    },
+    {
+      "title": "How does Netflix manage to show you a movie without interruptions?",
+      "url": "https://api.daily.dev/r/3GPA40oFB",
+      "upvotes": 364
+    },
+    {
+      "title": "I Was So Angry, I Built My Own",
+      "url": "https://api.daily.dev/r/qoOvxzgxV",
+      "upvotes": 297
+    },
+    {
+      "title": "Kafka: The End of the Beginning",
+      "url": "https://api.daily.dev/r/eyVoNHU8D",
+      "upvotes": 237
+    }
+  ],
+  "picked": {
+    "title": "How does Netflix manage to show you a movie without interruptions?",
+    "url": "https://api.daily.dev/r/3GPA40oFB",
+    "upvotes": 364
+  },
+  "timestamp": "2025-06-19T08:49:22.532Z"
+}

@@ -44,32 +44,3 @@ confirmPrompt.run().then(async (answer) => {
     if (answer) researchData.push(await enquirer.prompt(research));
     triggerWorkflow(researchData);
 });
-
-async function triggerWorkflow(bodyData) {
-    const spinner = ora("Dispatching workflow...").start();
-
-    try {
-        const response = await fetch(ghWorkflowUrl, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${ghAccessToken}`,
-                Accept: "application/vnd.github.v3+json",
-            },
-            body: JSON.stringify({
-                ref: "main",
-                inputs: {
-                    data: JSON.stringify(bodyData),
-                },
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}\n${response}`);
-        }
-
-        spinner.succeed(chalk.greenBright("Workflow dispatched successfully!"));
-    } catch (error) {
-        spinner.fail("Error dispatching workflow");
-        console.error(error);
-    }
-}
