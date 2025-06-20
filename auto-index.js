@@ -3,23 +3,54 @@
 import { fetchTopDailyDev } from "./auto-dailydev.js";
 import { triggerWorkflow } from "./trigger.js";
 import cron from "node-cron";
+import fs from "fs/promises";
+import path from "path";
 
-async function runOnce(label) {
+const LOG_DIR = "./logs";
+const MAX_RETRIES = 2;
+
+function getTimestamp() {
+    return new Date().toISOString();
+}
+
+function getTodayLogPath() {
+    const date = new Date().toISOString().split("T")[0];
+    return path.join(LOG_DIR, `${date}.log`);
+}
+
+async function log(message) {
+    const line = `[${getTimestamp()}] ${message}\n`;
+    await fs.mkdir(LOG_DIR, { recursive: true });
+    await fs.appendFile(getTodayLogPath(), line);
+    console.log(line.trim());
+}
+
+async function runOnce(label, retry = 0) {
     try {
         const article = await fetchTopDailyDev();
-        console.log(`[AUTO ${label}] Picked article:`, article.picked);
+        await log(`[${label}] ✅ Picked: ${article.picked.title} — ${article.picked.url}`);
         await triggerWorkflow([article.picked]);
+        await log(`[${label}] ✅ Workflow triggered`);
     } catch (err) {
-        console.error(`[AUTO ${label}] Failed:`, err.message);
+        await log(`[${label}] ❌ Error: ${err.message}`);
+
+        if (retry < MAX_RETRIES) {
+            const delay = 3000 * (retry + 1);
+            await log(`[${label}] 🔁 Retrying in ${delay / 1000}s...`);
+            await new Promise((res) => setTimeout(res, delay));
+            await runOnce(label, retry + 1);
+        } else {
+            await log(`[${label}] ❌ Failed after ${MAX_RETRIES + 1} attempts`);
+        }
     }
 }
 
-// 🎯 Always run at 1PM
+// 🔁 Schedules
+
 cron.schedule("0 13 * * *", () => runOnce("1PM"), {
     timezone: "Asia/Ho_Chi_Minh",
 });
 
-// 🎯 50% chance to run at 5PM
 cron.schedule(
     "0 17 * * *",
     () => {
@@ -28,7 +59,6 @@ cron.schedule(
     { timezone: "Asia/Ho_Chi_Minh" }
 );
 
-// 🎯 30% chance to run at 5:30PM
 cron.schedule(
     "30 17 * * *",
     () => {
@@ -37,4 +67,4 @@ cron.schedule(
     { timezone: "Asia/Ho_Chi_Minh" }
 );
 
-console.log("🕒 Auto daily.dev trigger scheduled at 13:00, optional at 17:00 & 17:30");
+console.log("🕒 Scheduled: 13:00 (always), 17:00 (50%), 17:30 (30%)");
