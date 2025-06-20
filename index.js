@@ -3,7 +3,6 @@
 import "dotenv/config";
 import chalk from "chalk";
 import enquirer from "enquirer";
-import ora from "ora";
 const { Confirm } = enquirer;
 
 const ghWorkflowUrl = process.env.GITHUB_API_URL;

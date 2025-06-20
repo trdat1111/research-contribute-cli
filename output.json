@@ -1,35 +1,34 @@
 {
+  "picked": {
+    "title": "Build 3 Full-Stack Web Apps That Will Land You a Dev Job (12-Hour Full Course)",
+    "url": "https://api.daily.dev/r/NVXzXnL3y"
+  },
   "topArticles": [
     {
-      "title": "5 Projects That Will Actually Make You Better at Docker",
-      "url": "https://api.daily.dev/r/0TVTpqbJi",
-      "upvotes": 593
-    },
-    {
-      "title": "Have I Been Pwned 2.0 is Now Live!",
-      "url": "https://api.daily.dev/r/zHqwLNDTS",
-      "upvotes": 504
+      "title": "JavaScript Animation Engine",
+      "url": "https://api.daily.dev/r/9pqZiNBcV",
+      "upvotes": 488
     },
     {
       "title": "How does Netflix manage to show you a movie without interruptions?",
       "url": "https://api.daily.dev/r/3GPA40oFB",
-      "upvotes": 364
+      "upvotes": 368
     },
     {
-      "title": "I Was So Angry, I Built My Own",
-      "url": "https://api.daily.dev/r/qoOvxzgxV",
-      "upvotes": 297
+      "title": "Build 3 Full-Stack Web Apps That Will Land You a Dev Job (12-Hour Full Course)",
+      "url": "https://api.daily.dev/r/NVXzXnL3y",
+      "upvotes": 266
     },
     {
-      "title": "Kafka: The End of the Beginning",
-      "url": "https://api.daily.dev/r/eyVoNHU8D",
-      "upvotes": 237
+      "title": "How to Deploy a Web App",
+      "url": "https://api.daily.dev/r/drf30xGl3",
+      "upvotes": 113
+    },
+    {
+      "title": "hola svg Loaders",
+      "url": "https://api.daily.dev/r/PQyKGm0UI",
+      "upvotes": 96
     }
   ],
-  "picked": {
-    "title": "How does Netflix manage to show you a movie without interruptions?",
-    "url": "https://api.daily.dev/r/3GPA40oFB",
-    "upvotes": 364
-  },
-  "timestamp": "2025-06-19T08:49:22.532Z"
+  "timestamp": "2025-06-20T04:32:48.779Z"
 }
